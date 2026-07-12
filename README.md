@@ -65,7 +65,8 @@ User Uploads Document (PDF / JPG / PNG)
                 │
                 ▼
  Generate Answer Using Retrieved Context
-      (Groq LLM: Llama 3.3 70B)```
+      (Groq LLM: Llama 3.3 70B)
+```
 
 ## Setup
 
