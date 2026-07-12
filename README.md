@@ -28,23 +28,41 @@ A retrieval-augmented generation (RAG) chatbot that lets users upload their own 
 
 | Layer | Tool |
 |---|---|
-| LLM | Groq (Llama 3.3 70B) |
-| Embeddings | HuggingFace sentence-transformers |
-| Vector Store | ChromaDB |
-| Framework | LangChain |
-| Backend | FastAPI |
 | Frontend | Gradio |
+| Framework | LangChain |
+| Document Processing | PyPDF + Tesseract (via pytesseract) |
+| Embeddings | HuggingFace sentence-transformers (all-MiniLM-L6-v2) |
+| Vector Store | ChromaDB |
+| LLM | Groq (Llama 3.3 70B Versatile) |
 
 ## Architecture
-User uploads file (PDF / JPG / PNG)
-↓
-Extract text (PyPDF for PDFs, Tesseract OCR for images)
-↓
-Chunk text and embed using sentence-transformers
-↓
-Store in per-session ChromaDB vector store
-↓
-User asks question → retrieve top-k chunks → Groq LLM answers
+
+User Uploads Document (PDF/JPG/PNG)
+          │
+          ▼
+Extract Text
+(PyPDF for PDFs, Tesseract OCR for images)
+          │
+          ▼
+Split Text into Chunks
+          │
+          ▼
+Generate Embeddings
+(sentence-transformers)
+          │
+          ▼
+Store Embeddings
+(Per-session ChromaDB Vector Store)
+          │
+          ▼
+User Asks a Question
+          │
+          ▼
+Retrieve Top-k Relevant Chunks
+          │
+          ▼
+Generate Response
+(Groq LLM with Retrieved Context)
 
 ## Setup
 
@@ -85,11 +103,14 @@ Open `http://localhost:7860` in your browser.
 
 ## Project Structure
 
+```text
 rag-chatbot/
 ├── app/
-│   ├── config.py         # API keys and settings
-│   ├── ingest.py         # Document loading and chunking
-│   └── rag_pipeline.py   # Retrieval chain
-├── app.py                # Gradio frontend
-├── requirements.txt
-└── .env                  # not committed
+│   ├── config.py          # API keys and application settings
+│   ├── ingest.py          # Document ingestion, text extraction, chunking, and embeddings
+│   └── rag_pipeline.py    # Retrieval and question-answering pipeline
+├── app.py                 # Streamlit frontend
+├── requirements.txt       # Project dependencies
+├── .env                   # Environment variables (not committed)
+└── README.md              # Project documentation
+```
