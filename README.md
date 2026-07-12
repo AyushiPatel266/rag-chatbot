@@ -37,32 +37,35 @@ A retrieval-augmented generation (RAG) chatbot that lets users upload their own 
 
 ## Architecture
 
-User Uploads Document (PDF/JPG/PNG)
-          │
-          ▼
-Extract Text
-(PyPDF for PDFs, Tesseract OCR for images)
-          │
-          ▼
-Split Text into Chunks
-          │
-          ▼
-Generate Embeddings
-(sentence-transformers)
-          │
-          ▼
-Store Embeddings
-(Per-session ChromaDB Vector Store)
-          │
-          ▼
-User Asks a Question
-          │
-          ▼
-Retrieve Top-k Relevant Chunks
-          │
-          ▼
-Generate Response
-(Groq LLM with Retrieved Context)
+## Architecture
+
+```text
+User Uploads Document (PDF / JPG / PNG)
+                │
+                ▼
+      Document Text Extraction
+   (PyPDF for PDFs, Tesseract OCR for images)
+                │
+                ▼
+        Text Chunking & Processing
+                │
+                ▼
+       Generate Text Embeddings
+ (sentence-transformers: all-MiniLM-L6-v2)
+                │
+                ▼
+ Store Embeddings in Vector Database
+      (Per-session ChromaDB Store)
+                │
+                ▼
+       User Submits a Question
+                │
+                ▼
+ Retrieve Top-k Relevant Document Chunks
+                │
+                ▼
+ Generate Answer Using Retrieved Context
+      (Groq LLM: Llama 3.3 70B)```
 
 ## Setup
 
