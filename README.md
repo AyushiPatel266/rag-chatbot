@@ -37,8 +37,6 @@ A retrieval-augmented generation (RAG) chatbot that lets users upload their own 
 
 ## Architecture
 
-## Architecture
-
 ```text
 User Uploads Document (PDF / JPG / PNG)
                 │
@@ -96,6 +94,7 @@ Windows: Download from [UB-Mannheim/tesseract](https://github.com/UB-Mannheim/te
 
 Create a `.env` file in the root:
 GROQ_API_KEY=your_groq_key_here
+
 Get a free key at [console.groq.com](https://console.groq.com)
 
 **6. Run the app**
