@@ -160,11 +160,6 @@ def chat(message, history, session: dict):
         return "", history, session
 
     answer = session["chain"].invoke(message)
-    print(f"session keys: {session.keys()}")
-    print(f"retriever: {session.get('retriever')}")
-    source_docs = session["retriever"].invoke(message)
-    print(f"source docs count: {len(source_docs)}")
-    print(f"first doc metadata: {source_docs[0].metadata if source_docs else 'none'}")
 
     # pulling source chunks separately to show which file the answer came from
     source_docs = session["retriever"].invoke(message)
